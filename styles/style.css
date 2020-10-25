@@ -1,0 +1,12 @@
+.navbar-full {
+  width: 100%;
+  max-width: inherit;
+}
+
+.navbar-full .logo {
+  height: 77px;
+  width: 155px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+/*# sourceMappingURL=style.css.map */

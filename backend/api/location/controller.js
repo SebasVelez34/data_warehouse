@@ -1,5 +1,5 @@
 import Location from './model';
-
+import mongoose from 'mongoose';
 const index = async (req, res) => {
     try {
         const locations = await Location.find();
@@ -65,8 +65,9 @@ const showRegion = async (req, res) => {
 
 const showCountry = async (req, res) => {
     try {
+        const country_id = mongoose.Types.ObjectId(req.params.country);
         const location = await Location.findOne({
-            "locations.country_id": parseInt(req.params.country)
+            "locations._id" : country_id
         });
         if (location) {
             const {
@@ -76,7 +77,7 @@ const showCountry = async (req, res) => {
             } = location;
             res.send({
                 _id: id,
-                locations: locations.find(l => l.country_id == req.params.country),
+                locations: locations.find(l => l.id == country_id),
                 region: region
             })
         } else {
@@ -93,22 +94,23 @@ const showCountry = async (req, res) => {
 
 const showCity = async (req, res) => {
     try {
-        const city = parseInt(req.params.city);
+        const city_id = mongoose.Types.ObjectId(req.params.city);
         const location = await Location.findOne({
-            "locations.cities.city_id": city
+            "locations.cities._id": city_id
         });
-
         if (location) {
             const {
                 id,
                 locations,
                 region
             } = location;
+            console.log(locations);
             const cities = locations.find(location => {
-                const currentCity = location.cities.find(c => c.city_id === city);
+                const currentCity = location.cities.find(c => c.id == city_id);
                 return currentCity;
             });
-            const currentCity = cities.cities.find(c => c.city_id === city);
+            console.log(cities);
+            const currentCity = cities.cities.find(c => c.id == city_id);
             res.send({
                 _id: id,
                 locations: currentCity,
@@ -116,7 +118,7 @@ const showCity = async (req, res) => {
             })
         } else {
             res.status(401).send({
-                msg: "Error finding country"
+                msg: "Error finding city"
             });
         }
     } catch (error) {
@@ -126,43 +128,52 @@ const showCity = async (req, res) => {
     }
 }
 
-const update = (req, res) => {
-    requestErrors(req, res);
+const update = async(req, res) => {
     try {
-        const update = product.update(req.params, req.body);
-        update.then(response => {
-            res.status(200).send(response);
-        }).catch((error) => {
-            res.status(500).send({
-                error: error
+        const location = await Location.findOneAndUpdate(
+            { _id: req.params.location },
+            {
+                $set: req.body
+            }
+        );
+        if (location) {
+            res.send({
+                _id: location.id,
+                locations: location.locations,
+                region: location.region
+            })
+        } else {
+            res.status(401).send({
+                msg: "Invalid locations data"
             });
-        });
+        }
     } catch (error) {
-        res.status(500).send({
-            error: error
+        res.status(401).send({
+            msg: error.message
         });
     }
 }
 
-const destroy = (req, res) => {
-    requestErrors(req, res);
+const destroy = async (req, res) => {
     try {
-        const destroy = product.destroy(req.params);
-        destroy.then(response => {
-            res.status(200).send(response);
-        }).catch((error) => {
-            res.status(500).send({
-                error: error
-            });
+        const location = await Location.deleteOne({
+            _id: req.params.location
         });
+        if (location) {
+            res.status(200).send({
+                msg: "Location Deleted"
+            });
+        } else {
+            res.status(401).send({
+                msg: "Invalid locations data"
+            });
+        }
     } catch (error) {
-        res.status(500).send({
-            error: error
+        res.status(401).send({
+            msg: error.message
         });
     }
 }
-
-
 
 export {
     index,

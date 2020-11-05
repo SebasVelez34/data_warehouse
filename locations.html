@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+
+    <title>
+        Data Warehouse
+    </title>
+    <!-- Favicon -->
+    <link rel="icon" href="assets/img/brand/favicon.png" type="image/png">
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+    <!-- Icons -->
+    <link rel="stylesheet" href="assets/vendor/nucleo/css/nucleo.css" type="text/css">
+    <link rel="stylesheet" href="assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
+    <!-- Page plugins -->
+    <!-- Argon CSS -->
+    <link rel="stylesheet" href="assets/css/argon.css?v=1.2.0" type="text/css">
+    <link href="./styles/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="./assets/vendor/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="./assets/vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css">
+</head>
+
+<body class="login-page">
+    <div class="main-content" id="panel">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container navbar-full">
+                <a class="navbar-brand mr-lg-5" href="../index.html">
+                    <img src="./images/logo.png" alt="Logo" class="logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-primary"
+                    aria-controls="navbar-primary" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar-primary">
+                    <div class="navbar-collapse-header">
+                        <div class="row">
+                            <div class="col-6 collapse-brand">
+                                <a href="javascript:void(0)">
+                                    <img src="../../assets/img/brand/blue.png">
+                                </a>
+                            </div>
+                            <div class="col-6 collapse-close">
+                                <button type="button" class="navbar-toggler" data-toggle="collapse"
+                                    data-target="#navbar-primary" aria-controls="navbar-primary" aria-expanded="false"
+                                    aria-label="Toggle navigation">
+                                    <span></span>
+                                    <span></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="navbar-nav ml-lg-auto">
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link" data-toggle="dropdown" href="#" role="button">
+                                <i class="ni ni-collection d-lg-none"></i>
+                                <span class="nav-link-inner--text">Cuenta</span>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a href="./login.html" class="dropdown-item">Ingresar</a>
+                                <a href="../register.html" class="dropdown-item">Registrarse</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contactos <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Usuarios</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="companies.html">Compañías</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="#">Región / Ciudad</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="header bg-default pb-6">
+            <div class="container-fluid">
+                <div class="header-body">
+                    <div class="row align-items-center py-4">
+                        <div class="col-lg-6 col-7">
+                            <h6 class="h2 text-white d-inline-block mb-0">Tables</h6>
+                            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                                <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                                    <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                                    <li class="breadcrumb-item"><a href="#">Tables</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Tables</li>
+                                </ol>
+                            </nav>
+                        </div>
+                        <div class="col-lg-6 col-5 text-right">
+                            <a href="#" class="btn btn-sm btn-neutral">New</a>
+                            <a href="#" class="btn btn-sm btn-neutral">Filters</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Navbar -->
+        <div class="container-fluid mt--6">
+            <!-- Table -->
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <!-- Card header -->
+                        <div class="card-header">
+                            <h3 class="mb-0">Action buttons</h3>
+                            <p class="text-sm mb-0">
+                                This is an exmaple of datatable using the well known datatables.net plugin. This is a
+                                minimal setup in order to get started fast.
+                            </p>
+                        </div>
+                        <div class="table-responsive py-4">
+                            <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                <div class="dt-buttons btn-group flex-wrap"> <button
+                                        class="btn buttons-copy buttons-html5 btn-sm btn-default" tabindex="0"
+                                        aria-controls="datatable-buttons" type="button"><span>Copy</span></button>
+                                    <button class="btn buttons-print btn-sm btn-default" tabindex="0"
+                                        aria-controls="datatable-buttons" type="button"><span>Print</span></button>
+                                </div>
+                                <div id="datatable-buttons_filter" class="dataTables_filter"><label>Search:<input
+                                            type="search" class="form-control form-control-sm" placeholder=""
+                                            aria-controls="datatable-buttons"></label></div>
+                                <table class="table table-flush dataTable" id="datatable-buttons" role="grid"
+                                    aria-describedby="datatable-buttons_info">
+                                    <thead class="thead-light">
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons"
+                                                rowspan="1" colspan="1" aria-sort="ascending"
+                                                aria-label="Name: activate to sort column descending"
+                                                style="width: 416px;">Name</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons"
+                                                rowspan="1" colspan="1"
+                                                aria-label="Position: activate to sort column ascending"
+                                                style="width: 614px;">Position</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons"
+                                                rowspan="1" colspan="1"
+                                                aria-label="Office: activate to sort column ascending"
+                                                style="width: 326px;">Office</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons"
+                                                rowspan="1" colspan="1"
+                                                aria-label="Age: activate to sort column ascending"
+                                                style="width: 173px;">Age</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons"
+                                                rowspan="1" colspan="1"
+                                                aria-label="Start date: activate to sort column ascending"
+                                                style="width: 307px;">Start date</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons"
+                                                rowspan="1" colspan="1"
+                                                aria-label="Salary: activate to sort column ascending"
+                                                style="width: 278px;">Salary</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th rowspan="1" colspan="1">Name</th>
+                                            <th rowspan="1" colspan="1">Position</th>
+                                            <th rowspan="1" colspan="1">Office</th>
+                                            <th rowspan="1" colspan="1">Age</th>
+                                            <th rowspan="1" colspan="1">Start date</th>
+                                            <th rowspan="1" colspan="1">Salary</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        <tr role="row" class="odd">
+                                            <td class="sorting_1">Airi Satou</td>
+                                            <td>Accountant</td>
+                                            <td>Tokyo</td>
+                                            <td>33</td>
+                                            <td>2008/11/28</td>
+                                            <td>$162,700</td>
+                                        </tr>
+                                        <tr role="row" class="even">
+                                            <td class="sorting_1">Angelica Ramos</td>
+                                            <td>Chief Executive Officer (CEO)</td>
+                                            <td>London</td>
+                                            <td>47</td>
+                                            <td>2009/10/09</td>
+                                            <td>$1,200,000</td>
+                                        </tr>
+                                        <tr role="row" class="odd">
+                                            <td class="sorting_1">Ashton Cox</td>
+                                            <td>Junior Technical Author</td>
+                                            <td>San Francisco</td>
+                                            <td>66</td>
+                                            <td>2009/01/12</td>
+                                            <td>$86,000</td>
+                                        </tr>
+                                        <tr role="row" class="even">
+                                            <td class="sorting_1">Bradley Greer</td>
+                                            <td>Software Engineer</td>
+                                            <td>London</td>
+                                            <td>41</td>
+                                            <td>2012/10/13</td>
+                                            <td>$132,000</td>
+                                        </tr>
+                                        <tr role="row" class="odd">
+                                            <td class="sorting_1">Brenden Wagner</td>
+                                            <td>Software Engineer</td>
+                                            <td>San Francisco</td>
+                                            <td>28</td>
+                                            <td>2011/06/07</td>
+                                            <td>$206,850</td>
+                                        </tr>
+                                        <tr role="row" class="even">
+                                            <td class="sorting_1">Brielle Williamson</td>
+                                            <td>Integration Specialist</td>
+                                            <td>New York</td>
+                                            <td>61</td>
+                                            <td>2012/12/02</td>
+                                            <td>$372,000</td>
+                                        </tr>
+                                        <tr role="row" class="odd">
+                                            <td class="sorting_1">Bruno Nash</td>
+                                            <td>Software Engineer</td>
+                                            <td>London</td>
+                                            <td>38</td>
+                                            <td>2011/05/03</td>
+                                            <td>$163,500</td>
+                                        </tr>
+                                        <tr role="row" class="even">
+                                            <td class="sorting_1">Caesar Vance</td>
+                                            <td>Pre-Sales Support</td>
+                                            <td>New York</td>
+                                            <td>21</td>
+                                            <td>2011/12/12</td>
+                                            <td>$106,450</td>
+                                        </tr>
+                                        <tr role="row" class="odd">
+                                            <td class="sorting_1">Cara Stevens</td>
+                                            <td>Sales Assistant</td>
+                                            <td>New York</td>
+                                            <td>46</td>
+                                            <td>2011/12/06</td>
+                                            <td>$145,600</td>
+                                        </tr>
+                                        <tr role="row" class="even">
+                                            <td class="sorting_1">Cedric Kelly</td>
+                                            <td>Senior Javascript Developer</td>
+                                            <td>Edinburgh</td>
+                                            <td>22</td>
+                                            <td>2012/03/29</td>
+                                            <td>$433,060</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="dataTables_info" id="datatable-buttons_info" role="status"
+                                    aria-live="polite">Showing 1 to 10 of 57 entries</div>
+                                <div class="dataTables_paginate paging_simple_numbers" id="datatable-buttons_paginate">
+                                    <ul class="pagination">
+                                        <li class="paginate_button page-item previous disabled"
+                                            id="datatable-buttons_previous"><a href="#"
+                                                aria-controls="datatable-buttons" data-dt-idx="0" tabindex="0"
+                                                class="page-link"><i class="fas fa-angle-left"></i></a></li>
+                                        <li class="paginate_button page-item active"><a href="#"
+                                                aria-controls="datatable-buttons" data-dt-idx="1" tabindex="0"
+                                                class="page-link">1</a></li>
+                                        <li class="paginate_button page-item "><a href="#"
+                                                aria-controls="datatable-buttons" data-dt-idx="2" tabindex="0"
+                                                class="page-link">2</a></li>
+                                        <li class="paginate_button page-item "><a href="#"
+                                                aria-controls="datatable-buttons" data-dt-idx="3" tabindex="0"
+                                                class="page-link">3</a></li>
+                                        <li class="paginate_button page-item "><a href="#"
+                                                aria-controls="datatable-buttons" data-dt-idx="4" tabindex="0"
+                                                class="page-link">4</a></li>
+                                        <li class="paginate_button page-item "><a href="#"
+                                                aria-controls="datatable-buttons" data-dt-idx="5" tabindex="0"
+                                                class="page-link">5</a></li>
+                                        <li class="paginate_button page-item "><a href="#"
+                                                aria-controls="datatable-buttons" data-dt-idx="6" tabindex="0"
+                                                class="page-link">6</a></li>
+                                        <li class="paginate_button page-item next" id="datatable-buttons_next"><a
+                                                href="#" aria-controls="datatable-buttons" data-dt-idx="7" tabindex="0"
+                                                class="page-link"><i class="fas fa-angle-right"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--   Core JS Files   -->
+    <!-- Argon Scripts -->
+    <!-- Core -->
+    <script src="assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/js-cookie/js.cookie.js"></script>
+    <script src="assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+    <!-- Argon JS -->
+    <script src="assets/js/argon.js?v=1.2.0"></script>
+    <script src="./scripts/config.js" type="text/javascript"></script>
+    <script src="./scripts/app.js" type="text/javascript"></script>
+</body>
+
+</html>

@@ -2,7 +2,7 @@ import mongoose, {
     Schema,
     model
 } from 'mongoose';
-
+import Country from './countrySchema';
 const locationSchema = new Schema({
     region: {
         type: String,
@@ -10,11 +10,8 @@ const locationSchema = new Schema({
         unique: true,
         dropDups: true
     },
-    locations: {
-        type: Array,
-        required: true
-    }
-});
+    locations: [Country.schema]
+},{ timestamps: true});
 
 const locationModel = model("Location", locationSchema);
 export default locationModel;

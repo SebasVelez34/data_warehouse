@@ -23,7 +23,7 @@ const companySchema = new Schema({
         required: true
     },
     city_id: {
-        type: Number,
+        type: Schema.ObjectId, ref: 'City',
         required: true
     }
 });

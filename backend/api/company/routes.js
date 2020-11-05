@@ -1,18 +1,17 @@
 import express from 'express';
 const router = express.Router();
+import {
+    index,
+    show,
+    store,
+    update,
+    destroy
+} from './controller';
 
-/* router.get("/", isAuth, controller.index);
-router.get("/:product", [isAuth, validate("show")], controller.show);
-router.post("/", [isAuth, isAdmin, validate("store")], controller.store);
-router.put(
-    "/:product",
-    [isAuth, isAdmin, validate("update")],
-    controller.update
-);
-router.delete(
-    "/:product",
-    [isAuth, isAdmin, validate("destroy")],
-    controller.destroy
-); */
+router.get("/", index);
+router.get("/:company", show);
+router.post("/", store);
+router.put("/:company", update);
+router.delete("/:company", destroy);
 
 export default router;

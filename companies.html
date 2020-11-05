@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+
+    <title>
+        Compañias
+    </title>
+    <!-- Favicon -->
+    <link rel="icon" href="assets/img/brand/favicon.png" type="image/png">
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+    <!-- Icons -->
+    <link rel="stylesheet" href="assets/vendor/nucleo/css/nucleo.css" type="text/css">
+    <link rel="stylesheet" href="assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
+    <!-- Page plugins -->
+    <!-- Argon CSS -->
+
+    <link rel="stylesheet" href="./assets/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="./assets/vendor/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="./assets/vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css">
+    <link rel="stylesheet" href="./assets/vendor/sweetalert2/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="assets/css/argon.css?v=1.2.0" type="text/css">
+    <link href="./styles/style.css" rel="stylesheet" />
+</head>
+
+<body class="login-page">
+    <div class="main-content" id="panel">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container navbar-full">
+                <a class="navbar-brand mr-lg-5" href="../index.html">
+                    <img src="./images/logo.png" alt="Logo" class="logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-primary"
+                    aria-controls="navbar-primary" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar-primary">
+                    <div class="navbar-collapse-header">
+                        <div class="row">
+                            <div class="col-6 collapse-brand">
+                                <a href="javascript:void(0)">
+                                    <img src="../../assets/img/brand/blue.png">
+                                </a>
+                            </div>
+                            <div class="col-6 collapse-close">
+                                <button type="button" class="navbar-toggler" data-toggle="collapse"
+                                    data-target="#navbar-primary" aria-controls="navbar-primary" aria-expanded="false"
+                                    aria-label="Toggle navigation">
+                                    <span></span>
+                                    <span></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="navbar-nav ml-lg-auto">
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link" data-toggle="dropdown" href="#" role="button">
+                                <i class="ni ni-collection d-lg-none"></i>
+                                <span class="nav-link-inner--text">Cuenta</span>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a href="./login.html" class="dropdown-item">Ingresar</a>
+                                <a href="../register.html" class="dropdown-item">Registrarse</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contactos <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Usuarios</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="companies.html">Compañías</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="#">Región / Ciudad</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="header bg-default pb-6">
+            <div class="container-fluid">
+                <div class="header-body">
+                    <div class="row align-items-center py-4">
+                        <div class="col-lg-6 col-7">
+                            <h6 class="h2 text-white d-inline-block mb-0">Compañías</h6>
+                        </div>
+                        <div class="col-lg-6 col-5 text-right">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-sm btn-neutral" data-toggle="modal"
+                                    data-target="#modal-form" id="createCompany">Crear Compañia</button>
+                                <div class="modal fade" id="modal-form" tabindex="-1" role="dialog"
+                                    aria-labelledby="modal-form" style="display: none;" aria-hidden="true">
+                                    <div class="modal-dialog modal- modal-dialog-centered modal-sm" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body p-0">
+                                                <div class="card bg-secondary border-0 mb-0">c
+                                                    <div class="card-header bg-transparent">
+                                                        <div class="text-muted text-center mt-2"><small>Compañía</small></div>
+                                                    </div>
+                                                    <div class="card-body px-lg-5 py-lg-5">
+                                                        <form role="form" id="formCreateCompany"
+                                                            class="needs-validation" novalidate>
+                                                            <div class="form-group mb-3">
+                                                                <div
+                                                                    class="input-group input-group-merge input-group-alternative">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text"><i
+                                                                                class="ni ni-align-left-2"></i></span>
+                                                                    </div>
+                                                                    <input class="form-control" placeholder="Nombre"
+                                                                        type="text" name="name" required>
+                                                                    <div class="invalid-feedback">
+                                                                        Es requerido el nombre de la compañía
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div
+                                                                    class="input-group input-group-merge input-group-alternative">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text"><i
+                                                                                class="ni ni-compass-04"></i></span>
+                                                                    </div>
+                                                                    <input class="form-control" placeholder="Dirección"
+                                                                        type="text" name="address" required>
+                                                                    <div class="invalid-feedback">
+                                                                        Es requerido la dirección de la compañía
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div
+                                                                    class="input-group input-group-merge input-group-alternative">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text"><i
+                                                                                class="ni ni-email-83"></i></span>
+                                                                    </div>
+                                                                    <input class="form-control" placeholder="Email"
+                                                                        type="email" name="email" required>
+                                                                    <div class="invalid-feedback">
+                                                                        Es requerido el email de la compañía
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div
+                                                                    class="input-group input-group-merge input-group-alternative">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text"><i
+                                                                                class="ni ni-mobile-button"></i></span>
+                                                                    </div>
+                                                                    <input class="form-control" placeholder="Telefono"
+                                                                        type="number" name="phone" required>
+                                                                    <div class="invalid-feedback">
+                                                                        Es requerido el telefono de la compañía
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div
+                                                                    class="input-group input-group-merge input-group-alternative">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text"><i
+                                                                                class="ni ni-square-pin"></i></span>
+                                                                    </div>
+                                                                    <select class="form-control" name="city_id"
+                                                                        id="city_id" required>
+                                                                        <option value="">Seleccione una ciudad</option>
+                                                                        <option value="5fa147b607f466ac1d536bd0">
+                                                                            Medellin</option>
+                                                                    </select>
+                                                                    <div class="invalid-feedback">
+                                                                        Es requerido la ciudad de la compañía
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="text-center">
+                                                                <button type="submit" class="btn btn-primary my-4">
+                                                                    Enviar</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Navbar -->
+        <div class="container-fluid mt--6">
+            <!-- Table -->
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <!-- Card header -->
+                        <div class="card-header">
+                            <h3 class="mb-0">Compañías</h3>
+                        </div>
+                        <div class="table-responsive py-4">
+                            <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                <table class="table table-flush dataTable" id="datatable-buttons" role="grid"
+                                    aria-describedby="datatable-buttons_info">
+                                    <thead class="thead-light">
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons"
+                                                rowspan="1" colspan="1" aria-sort="ascending"
+                                                aria-label="Name: activate to sort column descending"
+                                                style="width: 416px;">Nombre</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons"
+                                                rowspan="1" colspan="1"
+                                                aria-label="Position: activate to sort column ascending"
+                                                style="width: 614px;">Dirección</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons"
+                                                rowspan="1" colspan="1"
+                                                aria-label="Office: activate to sort column ascending"
+                                                style="width: 326px;">Email</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons"
+                                                rowspan="1" colspan="1"
+                                                aria-label="Age: activate to sort column ascending"
+                                                style="width: 173px;">Telefono</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons"
+                                                rowspan="1" colspan="1"
+                                                aria-label="Start date: activate to sort column ascending"
+                                                style="width: 307px;">Ciudad</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th rowspan="1" colspan="1">Nombre</th>
+                                            <th rowspan="1" colspan="1">Dirección</th>
+                                            <th rowspan="1" colspan="1">Email</th>
+                                            <th rowspan="1" colspan="1">Telefono</th>
+                                            <th rowspan="1" colspan="1">Ciudad</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody id="companyTable">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--   Core JS Files   -->
+    <!-- Argon Scripts -->
+    <!-- Core -->
+    <script src="./assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="./assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/vendor/js-cookie/js.cookie.js"></script>
+    <script src="./assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="./assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+    <!-- Argon JS -->
+    <script src="./assets/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="./assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="./assets/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="./assets/vendor/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="./assets/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="./assets/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="./assets/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="./assets/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
+
+    <script src="./assets/vendor/bootstrap-notify/bootstrap-notify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.9.0/dist/sweetalert2.all.min.js"></script>
+    <script src="./assets/js/argon.js?v=1.2.0"></script>
+    <script src="./scripts/config.js" type="text/javascript"></script>
+    <script src="./scripts/app.js" type="text/javascript"></script>
+    <script src="./scripts/companies.js" type="text/javascript"></script>
+</body>
+
+</html>

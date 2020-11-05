@@ -5,6 +5,7 @@ const mongodbUrl = config.MONGODB_URL;
 const connection = mongoose.connect(mongodbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useFindAndModify: false
 }).catch(error => console.log(error.reason));
 export default connection;

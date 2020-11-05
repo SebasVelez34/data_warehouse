@@ -1,3 +1,7 @@
+*, body {
+  font-family: 'Open Sans', sans-serif;
+}
+
 .navbar-full {
   width: 100%;
   max-width: inherit;
@@ -8,5 +12,9 @@
   width: 155px;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.vh-100 {
+  height: 100vh;
 }
 /*# sourceMappingURL=style.css.map */

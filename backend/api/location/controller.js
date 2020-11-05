@@ -28,13 +28,13 @@ const store = async (req, res) => {
                     locations: newLocation.name,
                 })
             } else {
-                res.status(401).send({
+                res.status(500).send({
                     msg: "Invalid locations data"
                 });
             }
         }
     } catch (error) {
-        res.status(401).send({
+        res.status(500).send({
             msg: error.message
         });
     }
@@ -52,7 +52,7 @@ const showRegion = async (req, res) => {
                 region: location.region
             })
         } else {
-            res.status(401).send({
+            res.status(500).send({
                 msg: "Error finding region"
             });
         }
@@ -81,7 +81,7 @@ const showCountry = async (req, res) => {
                 region: region
             })
         } else {
-            res.status(401).send({
+            res.status(500).send({
                 msg: "Error finding country"
             });
         }
@@ -117,7 +117,7 @@ const showCity = async (req, res) => {
                 region: region
             })
         } else {
-            res.status(401).send({
+            res.status(500).send({
                 msg: "Error finding city"
             });
         }
@@ -143,12 +143,12 @@ const update = async(req, res) => {
                 region: location.region
             })
         } else {
-            res.status(401).send({
+            res.status(500).send({
                 msg: "Invalid locations data"
             });
         }
     } catch (error) {
-        res.status(401).send({
+        res.status(500).send({
             msg: error.message
         });
     }
@@ -164,12 +164,12 @@ const destroy = async (req, res) => {
                 msg: "Location Deleted"
             });
         } else {
-            res.status(401).send({
+            res.status(500).send({
                 msg: "Invalid locations data"
             });
         }
     } catch (error) {
-        res.status(401).send({
+        res.status(500).send({
             msg: error.message
         });
     }

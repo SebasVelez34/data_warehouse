@@ -39,13 +39,13 @@ const store = async (req, res) => {
 					city_id: newCompany.city_id,
 				});
 			} else {
-				res.status(401).send({
+				res.status(500).send({
 					msg: "Invalid companies data",
 				});
 			}
 		}
 	} catch (error) {
-		res.status(401).send({
+		res.status(500).send({
 			msg: error.message,
 		});
 	}
@@ -86,12 +86,12 @@ const update = async (req, res) => {
 				city_id: company.city_id,
 			});
 		} else {
-			res.status(401).send({
+			res.status(500).send({
 				msg: "Invalid companies data",
 			});
 		}
 	} catch (error) {
-		res.status(401).send({
+		res.status(500).send({
 			msg: error.message,
 		});
 	}
@@ -107,12 +107,12 @@ const destroy = async (req, res) => {
 				msg: "Company Deleted",
 			});
 		} else {
-			res.status(401).send({
+			res.status(500).send({
 				msg: "Invalid companies data",
 			});
 		}
 	} catch (error) {
-		res.status(401).send({
+		res.status(500).send({
 			msg: error.message,
 		});
 	}

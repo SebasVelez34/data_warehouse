@@ -2,16 +2,14 @@ import mongoose, {
     Schema,
     model
 } from 'mongoose';
-import Country from './countrySchema';
-const locationSchema = new Schema({
-    region: {
+const regionSchema = new Schema({
+    name: {
         type: String,
         required: true,
         unique: true,
         dropDups: true
     },
-    locations: [Country.schema]
 },{ timestamps: true});
 
-const locationModel = model("Location", locationSchema);
-export default locationModel;
+const regionModel = model("Region", regionSchema);
+export default regionModel;

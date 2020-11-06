@@ -1,8 +1,10 @@
-import Location from './model';
+import Region from './model';
+import Country from './countrySchema';
+import City from './citySchema';
 import mongoose from 'mongoose';
 const index = async (req, res) => {
     try {
-        const locations = await Location.find();
+        const locations = await Region.find();
         if (locations.length === 0) {
             res.status(204).send(locations);
         }
@@ -14,25 +16,66 @@ const index = async (req, res) => {
     }
 };
 
-const store = async (req, res) => {
+const storeRegion = async (req, res) => {
     try {
-        const location = new Location({
-            region: req.body.region,
-            locations: req.body.locations
+        const region = new Region({
+            name: req.body.name,
         });
-        if (location) {
-            const newLocation = await location.save();
-            if (newLocation) {
-                res.send({
-                    _id: newLocation.id,
-                    locations: newLocation.name,
-                })
-            } else {
-                res.status(500).send({
-                    msg: "Invalid locations data"
+        if(region){
+            const newRegion = await region.save();
+            if(newRegion){
+                res.status(200).send({
+                    id: newRegion._id,
+                    name: newRegion.name
                 });
             }
-        }
+        } 
+    } catch (error) {
+        res.status(500).send({
+            msg: error.message
+        });
+    }
+}
+
+const storeCountry = async (req, res) => {
+    try {
+        const country = new Country({
+            name: req.body.name,
+            region_id: req.body.region_id
+        });
+        if(country){
+            const newCountry = await country.save();
+            if(newCountry){
+                res.status(200).send({
+                    id: newCountry._id,
+                    name: newCountry.name,
+                    region_id: newCountry.region_id
+                });
+            }
+        } 
+    } catch (error) {
+        res.status(500).send({
+            msg: error.message
+        });
+    }
+}
+
+const storeCity = async (req, res) => {
+    try {
+        const city = new City({
+            name: req.body.name,
+            country_id: req.body.country_id
+        });
+        if(city){
+            const newCity = await city.save();
+            if(newCity){
+                res.status(200).send({
+                    id: newCity._id,
+                    name: newCity.name,
+                    country_id: newCity.country_id
+                });
+            }
+        } 
     } catch (error) {
         res.status(500).send({
             msg: error.message
@@ -177,7 +220,9 @@ const destroy = async (req, res) => {
 
 export {
     index,
-    store,
+    storeRegion,
+    storeCountry,
+    storeCity,
     showRegion,
     showCountry,
     showCity,

@@ -1,4 +1,4 @@
-require('./config/db/database');
+require('./utils/db/mongoDatabase');
 import express from 'express';
 import bodyParser from 'body-parser';
 import routes from './api';

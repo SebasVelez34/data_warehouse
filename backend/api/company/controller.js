@@ -1,12 +1,16 @@
-import Company from "./model";
+import db, { Company,City } from "../../db/";
 
 const index = async (req, res) => {
 	try {
-        const companies = await Company.find();
+		const companies = await Company.findAll({
+			include: [
+				City
+			],
+		});
 		if (companies.length === 0) {
 			res.status(204).send(companies);
-        }
-        res.status(200).send(companies);
+		}
+		res.status(200).send(companies);
 	} catch (error) {
 		res.status(500).send({
 			error: error,
@@ -16,65 +20,10 @@ const index = async (req, res) => {
 
 const store = async (req, res) => {
 	try {
-		const company = new Company({
-			name: req.body.name,
-			address: req.body.address,
-			email: req.body.email,
-			phone: req.body.phone,
-			city_id: req.body.city_id,
-		});
-		if (company) {
-			const newCompany = await company.save();
-			if (newCompany) {
-				res.send({
-					id: newCompany.id,
-					name: newCompany.name,
-					address: newCompany.address,
-					email: newCompany.email,
-					phone: newCompany.phone,
-					city_id: newCompany.city_id,
-				});
-			} else {
-				res.status(500).send({
-					msg: "Invalid companies data",
-				});
-			}
-		}
-	} catch (error) {
-		res.status(500).send({
-			msg: error.message,
-		});
-	}
-};
-
-const show = async (req, res) => {
-	try {
-		const company = await Company.findOne({
-			_id: req.params.company,
-		});
-		if (company) {
-			res.status(200).send(company);
-		} else {
-			res.status(204).send(company);
-		}
-	} catch (error) {
-		res.status(500).send({
-			error: error,
-		});
-	}
-};
-
-const update = async (req, res) => {
-	try {
-		const company = await Company.findOneAndUpdate(
-			{ _id: req.params.company },
-			{
-				$set: req.body,
-			}
-		);
+		const company = await Company.create(req.body);
 		if (company) {
 			res.send({
-				_id: company.id,
+				id: company.id,
 				name: company.name,
 				address: company.address,
 				email: company.email,
@@ -93,10 +42,49 @@ const update = async (req, res) => {
 	}
 };
 
+const show = async (req, res) => {
+	try {
+		const company = await Company.findOne({
+			where: {id : req.params.company},
+		});
+		if (company) {
+			res.status(200).send(company);
+		} else {
+			res.status(204).send(company);
+		}
+	} catch (error) {
+		res.status(500).send({
+			error: error,
+		});
+	}
+};
+
+const update = async (req, res) => {
+	try {
+		const company = await Company.update(req.body, {
+			where: { id: req.params.company },
+		});
+		if (company) {
+			res.send({
+				id: req.params.company,
+				msg: "Updated"
+			});
+		} else {
+			res.status(500).send({
+				msg: "Invalid companies data",
+			});
+		}
+	} catch (error) {
+		res.status(500).send({
+			msg: error.message,
+		});
+	}
+};
+
 const destroy = async (req, res) => {
 	try {
-		const company = await Company.deleteOne({
-			_id: req.params.company,
+		const company = await Company.destroy({
+			where: { id: req.params.company},
 		});
 		if (company) {
 			res.status(200).send({

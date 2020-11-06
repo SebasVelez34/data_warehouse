@@ -1,3 +1,4 @@
+@charset "UTF-8";
 *, body {
   font-family: 'Open Sans', sans-serif;
 }
@@ -16,5 +17,151 @@
 
 .vh-100 {
   height: 100vh;
+}
+
+ul.mtree {
+  opacity: 0;
+  margin-left: 0;
+  padding: 1.2em;
+}
+
+ul.mtree ul {
+  margin-left: 1em;
+}
+
+ul.mtree li {
+  list-style: none;
+}
+
+ul.mtree a {
+  display: block;
+}
+
+ul.mtree li.mtree-node > a {
+  font-weight: bold;
+}
+
+ul.mtree a {
+  -webkit-transition: all 300ms ease-out;
+  transition: all 300ms ease-out;
+}
+
+ul.mtree.bubba ul {
+  margin-left: 0;
+}
+
+ul.mtree.bubba ul li {
+  font-size: 0.9em;
+}
+
+ul.mtree.bubba li.mtree-node > a:after {
+  content: "›";
+  margin-left: 0.5em;
+  font-weight: normal;
+}
+
+ul.mtree.bubba li.mtree-node > a {
+  font-weight: bold;
+  text-transform: upperCase;
+}
+
+ul.mtree.bubba li.mtree-node > a > button {
+  position: absolute;
+  top: 0px;
+  height: 38px;
+}
+
+ul.mtree.bubba li.mtree-node > a > button.create {
+  right: 0%;
+}
+
+ul.mtree.bubba li.mtree-node > a > button.edit {
+  right: 2%;
+}
+
+ul.mtree.bubba li.mtree-node > a > button.delete {
+  right: 4.4%;
+}
+
+ul.mtree.bubba > li {
+  border-bottom: 1px solid #ddd;
+}
+
+ul.mtree.bubba > li:last-child {
+  border-bottom: none;
+}
+
+ul.mtree.bubba li:last-child > a {
+  border: none;
+}
+
+ul.mtree.bubba > li.mtree-open > a {
+  background: #ddd;
+}
+
+ul.mtree.bubba li > a:hover {
+  background: #ddd;
+}
+
+ul.mtree.bubba li.mtree-active > a {
+  background: #ffc000;
+  color: #fff;
+}
+
+ul.mtree.bubba a {
+  padding: 7px 0px 7px 1em;
+}
+
+ul.mtree.bubba li li > a {
+  padding-left: 2em;
+}
+
+ul.mtree.bubba li li li > a {
+  padding-left: 3em;
+}
+
+ul.mtree.bubba li li li li > a {
+  padding-left: 4em;
+}
+
+ul.mtree.bubba li li li li li > a {
+  padding-left: 5em;
+}
+
+.mtree-demo .mtree {
+  background: #eee;
+  margin: 20px auto;
+  max-width: 320px;
+  border-radius: 3px;
+}
+
+.mtree-skin-selector {
+  text-align: center;
+  background: #eee;
+  padding: 10px 0 15px;
+}
+
+.mtree-skin-selector li {
+  display: inline-block;
+  float: none;
+}
+
+.mtree-skin-selector button {
+  padding: 5px 10px;
+  margin-bottom: 1px;
+  background: #bbb;
+}
+
+.mtree-skin-selector button:hover {
+  background: #999;
+}
+
+.mtree-skin-selector button.active {
+  background: #999;
+  font-weight: bold;
+}
+
+.mtree-skin-selector button.csl.active {
+  background: #ffc000;
 }
 /*# sourceMappingURL=style.css.map */

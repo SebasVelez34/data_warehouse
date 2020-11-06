@@ -1,12 +1,8 @@
 import Company from "./model";
-import City from "../location/CitySchema";
-import Location from '../location/model';
 
 const index = async (req, res) => {
 	try {
         const companies = await Company.find();
-        const city = await City.find();
-        console.log(city);
 		if (companies.length === 0) {
 			res.status(204).send(companies);
         }

@@ -46,6 +46,9 @@ const show = async (req, res) => {
 	try {
 		const company = await Company.findOne({
 			where: {id : req.params.company},
+			include: [
+				City
+			],
 		});
 		if (company) {
 			res.status(200).send(company);
@@ -66,7 +69,7 @@ const update = async (req, res) => {
 		});
 		if (company) {
 			res.send({
-				id: req.params.company,
+				name: req.params.company,
 				msg: "Updated"
 			});
 		} else {

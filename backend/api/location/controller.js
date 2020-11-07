@@ -1,14 +1,13 @@
-import Region from "./model";
-import Country from "./countrySchema";
-import City from "./citySchema";
+import db,{ Region, Country, City } from '../../db';
+
 import mongoose from "mongoose";
 const index = async (req, res) => {
 	try {
-		const locations = await City.find()
-            .populate("country_id")
-            .populate('country_id.region_id').exec(function (err, results) {
-                console.log(results);
-           });;
+		const locations = await Region.findAll({
+            include:[
+                {model: Country, include: [City] }
+            ]
+        });
 		if (locations.length === 0) {
 			res.status(204).send(locations);
 		}
@@ -89,15 +88,14 @@ const storeCity = async (req, res) => {
 
 const showRegion = async (req, res) => {
 	try {
-		const location = await Location.findOne({
-			_id: req.params.region,
+		const location = await Region.findOne({
+            where: { id: req.params.region },
+            include:[
+                Country,
+            ]
 		});
 		if (location) {
-			res.send({
-				_id: location.id,
-				locations: location.locations,
-				region: location.region,
-			});
+			res.send(location);
 		} else {
 			res.status(500).send({
 				msg: "Error finding region",
@@ -112,17 +110,14 @@ const showRegion = async (req, res) => {
 
 const showCountry = async (req, res) => {
 	try {
-		const country_id = mongoose.Types.ObjectId(req.params.country);
-		const location = await Location.findOne({
-			"locations._id": country_id,
+		const country = await Country.findOne({
+            where: { id: req.params.country },
+            include:[
+                City,
+            ]
 		});
-		if (location) {
-			const { id, locations, region } = location;
-			res.send({
-				_id: id,
-				locations: locations.find((l) => l.id == country_id),
-				region: region,
-			});
+		if (country) {
+			res.send(country);
 		} else {
 			res.status(500).send({
 				msg: "Error finding country",
@@ -137,27 +132,34 @@ const showCountry = async (req, res) => {
 
 const showCity = async (req, res) => {
 	try {
-		const city_id = mongoose.Types.ObjectId(req.params.city);
-		const location = await Location.findOne({
-			"locations.cities._id": city_id,
+		const city = await City.findOne({
+            where: { id: req.params.city },
+            include:[
+                Country
+            ]
 		});
-		if (location) {
-			const { id, locations, region } = location;
-			console.log(locations);
-			const cities = locations.find((location) => {
-				const currentCity = location.cities.find((c) => c.id == city_id);
-				return currentCity;
-			});
-			console.log(cities);
-			const currentCity = cities.cities.find((c) => c.id == city_id);
-			res.send({
-				_id: id,
-				locations: currentCity,
-				region: region,
-			});
+		if (city) {
+			res.send(city);
 		} else {
 			res.status(500).send({
 				msg: "Error finding city",
+			});
+		}
+	} catch (error) {
+		res.status(500).send({
+			error: error,
+		});
+	}
+};
+
+const cities = async (req, res) => {
+	try {
+		const cities = await City.findAll();
+		if (cities) {
+			res.send(cities);
+		} else {
+			res.status(500).send({
+				msg: "Error finding cities",
 			});
 		}
 	} catch (error) {
@@ -193,18 +195,60 @@ const update = async (req, res) => {
 	}
 };
 
-const destroy = async (req, res) => {
+const destroyRegion = async (req, res) => {
 	try {
-		const location = await Location.deleteOne({
-			_id: req.params.location,
+		const location = await Region.destroy({
+			where: { id: req.params.region },
 		});
 		if (location) {
 			res.status(200).send({
-				msg: "Location Deleted",
+				msg: "Region Deleted",
 			});
 		} else {
 			res.status(500).send({
-				msg: "Invalid locations data",
+				msg: "Invalid Region data",
+			});
+		}
+	} catch (error) {
+		res.status(500).send({
+			msg: error.message,
+		});
+	}
+};
+
+const destroyCountry = async (req, res) => {
+	try {
+		const location = await Country.destroy({
+			where: { id: req.params.country, region_id: req.body.region_id },
+		});
+		if (location) {
+			res.status(200).send({
+				msg: "Country Deleted",
+			});
+		} else {
+			res.status(500).send({
+				msg: "Invalid Country data",
+			});
+		}
+	} catch (error) {
+		res.status(500).send({
+			msg: error.message,
+		});
+	}
+};
+
+const destroyCity = async (req, res) => {
+	try {
+		const location = await City.destroy({
+			where: { id: req.params.region, country_id: req.body.country_id },
+		});
+		if (location) {
+			res.status(200).send({
+				msg: "City Deleted",
+			});
+		} else {
+			res.status(500).send({
+				msg: "Invalid City data",
 			});
 		}
 	} catch (error) {
@@ -223,5 +267,8 @@ export {
 	showCountry,
 	showCity,
 	update,
-	destroy,
+    destroyRegion,
+    destroyCountry,
+    destroyCity,
+    cities
 };

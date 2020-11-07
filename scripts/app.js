@@ -83,3 +83,13 @@ function initializeDataTable(table_id) {
 		});
 	}
 }
+
+const formData = (form, inputs = 'input') => {
+	let data = {};
+	form.querySelectorAll(inputs).forEach((element) => {
+		data[element.name] = element.type === "checkbox" ? element.checked : element.value;
+	});
+	return data;
+};
+
+const objectHasEmpties = (data) => Object.values(data).some((data) => data === "");

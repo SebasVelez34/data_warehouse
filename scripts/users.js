@@ -48,18 +48,10 @@ const users = (()=>{
 
     createOrEdit = (action = post, params = {}) => {
 		const form = document.querySelector("#formCreateUser");
-		const formData = () => {
-			let data = {};
-			form.querySelectorAll("input,select").forEach((element) => {
-				data[element.name] = element.type === "checkbox" ? element.checked : element.value;
-            });
-            console.log(data);
-			return data;
-		};
 		form.onsubmit = (e) => {
 			e.preventDefault();
-			const data = formData();
-			const isInvalid = Object.values(data).some((data) => data === "");
+			const data = formData(form,"input,select");
+			const isInvalid = objectHasEmpties(data);
 			if (!isInvalid) {
 				const newCompany = action({ data, ...params });
 				newCompany

@@ -9,18 +9,23 @@ import {
     showCountry,
     showCity,
     update,
-    destroy
+    destroyRegion,
+    destroyCountry,
+    destroyCity,
+    cities
 } from './controller';
 
 router.get("/", index);
+router.get("/cities", cities);
 router.get("/region/:region", showRegion);
 router.get("/country/:country", showCountry);
 router.get("/city/:city", showCity);
-//router.post("/", store);
 router.post("/region", storeRegion);
 router.post("/country", storeCountry);
 router.post("/city", storeCity);
 router.put("/:location", update);
-router.delete("/:location", destroy);
+router.delete("/region/:region", destroyRegion);
+router.delete("/country/:country", destroyCountry);
+router.delete("/city/:city", destroyCity);
 
 export default router;

@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'City',
   });
-  
+  City.associate = (models) => {
+		City.belongsTo(models.Country, {
+			foreignKey: "id"
+		});
+	};
   return City;
 };

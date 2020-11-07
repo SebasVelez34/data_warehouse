@@ -3,10 +3,17 @@ const companies = (() => {
 		render();
 		createOrEdit();
 		resetModal();
+		citiesOnModal();
 	};
 
 	getCompanies = async () => {
 		return await fetch(`${API_URL}/company`)
+			.then((data) => data.json())
+			.then((data) => data);
+	};
+
+	getCities = async () => {
+		return await fetch(`${API_URL}/location/cities`)
 			.then((data) => data.json())
 			.then((data) => data);
 	};
@@ -18,7 +25,7 @@ const companies = (() => {
                 <td>${data.address}</td>
                 <td>${data.email}</td>
                 <td>${data.phone}</td>
-                <td>${data.city ?? ""}</td>
+                <td>${data.City.name}</td>
                 <td class="text-center">
                     <div class="dropdown">
                         <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -26,10 +33,10 @@ const companies = (() => {
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                             <a class="dropdown-item" href="#" onclick="companies.edit('${
-															data._id
+															data.id
 														}')">Editar</a>
                             <a class="dropdown-item" href="#" onclick="companies.destroy('${
-															data._id
+															data.id
 														}')">Eliminar</a>
                         </div>
                     </div>
@@ -65,6 +72,17 @@ const companies = (() => {
 		});
 	};
 
+	citiesOnModal = async () => {
+		const cities = await getCities();
+		const select = document.querySelector('#city_id');
+		console.log(cities);
+		let html = ''
+		cities.map(city =>{
+			html += `<option value="${city.id}">${city.name}</option>`;
+		});
+		select.insertAdjacentHTML("afterbegin", html);
+	}
+
 	render = async () => {
 		const data = await getCompanies();
 		const parent = document.querySelector("#companyTable");
@@ -80,17 +98,10 @@ const companies = (() => {
 
 	createOrEdit = (action = post, params = {}) => {
 		const form = document.querySelector("#formCreateCompany");
-		const formData = () => {
-			let data = {};
-			form.querySelectorAll("input,select").forEach((element) => {
-				data[element.name] = element.value;
-			});
-			return data;
-		};
 		form.onsubmit = (e) => {
 			e.preventDefault();
-			const data = formData();
-			const isInvalid = Object.values(data).some((data) => data === "");
+			const data = formData(form,"input,select");
+			const isInvalid = objectHasEmpties(data);
 			if (!isInvalid) {
 				const newCompany = action({ data, ...params });
 				newCompany
@@ -155,4 +166,7 @@ const companies = (() => {
 	};
 })();
 
-companies.init();
+(()=>{
+	companies.init();
+})();
+

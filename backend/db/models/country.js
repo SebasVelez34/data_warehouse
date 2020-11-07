@@ -20,5 +20,14 @@ module.exports = (sequelize, DataTypes) => {
 			modelName: "Country",
 		}
 	);
+	Country.associate = (models) => {
+		Country.hasMany(models.City, {
+			foreignKey: "country_id",
+			onDelete: 'cascade'
+		});
+		Country.belongsTo(models.Region, {
+			foreignKey: "region_id"
+		});
+	};
 	return Country;
 };

@@ -38,6 +38,9 @@ ul.mtree.bubba {
 	ul li {
 		font-size: 0.9em;
 	}
+	.mtree-node.mtree-closed,li.mtree-active,.mtree-open{
+		position: relative;
+	}
 	li.mtree-node > a:after {
 		content: "›";
 		margin-left: 0.5em;
@@ -50,7 +53,7 @@ ul.mtree.bubba {
     li.mtree-node > a > button{
         position: absolute;
         top: 0px;
-        height: 38px;
+        height: 34px;
         &.create{
             right: 0%;
         }
@@ -60,6 +63,26 @@ ul.mtree.bubba {
         &.delete{
             right: 4.4%;
         }
+	}
+	ul.mtree-level-2 {
+		li{
+			position: relative;
+			> a > button{
+				position: absolute;
+				top: 0px;
+				height: 34px;
+				&.create{
+					right: 0%;
+				}
+				&.edit{
+					right: 2.35%;
+				}
+				&.delete{
+					right: 4.4%;
+				}
+			}
+		}
+		
 	}
 	> li {
 		border-bottom: 1px solid #ddd;
@@ -89,12 +112,6 @@ ul.mtree.bubba {
 	}
 	li li li > a {
 		padding-left: $indent * 3;
-	}
-	li li li li > a {
-		padding-left: $indent * 4;
-	}
-	li li li li li > a {
-		padding-left: $indent * 5;
 	}
 }
 

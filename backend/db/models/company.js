@@ -42,7 +42,8 @@ module.exports = (sequelize, DataTypes) => {
 	);
 	Company.associate = (models) => {
 		Company.belongsTo(models.City, {
-			foreignKey: "city_id",
+      foreignKey: "city_id",
+      foreignKeyConstraint: true,
 			through: "city_id",
 		});
 	};

@@ -2,7 +2,6 @@
 const {
   Model
 } = require('sequelize');
-const Country = require('./country');
 module.exports = (sequelize, DataTypes) => {
   class City extends Model {};
   City.init({
@@ -14,13 +13,20 @@ module.exports = (sequelize, DataTypes) => {
         key: "id",
       },
     },
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    }
   }, {
     sequelize,
     modelName: 'City',
   });
   City.associate = (models) => {
 		City.belongsTo(models.Country, {
-			foreignKey: "id"
+      foreignKey: "id",
+      foreignKeyConstraint: true,
+      onDelete: 'CASCADE',
+      hooks: true
 		});
 	};
   return City;

@@ -1,15 +1,19 @@
-import db,{ Region, Country, City } from '../../db';
+import db, { Region, Country, City } from "../../db";
 
 import mongoose from "mongoose";
 const index = async (req, res) => {
 	try {
 		const locations = await Region.findAll({
-            include:[
-                {model: Country, include: [City] }
-            ]
-        });
+			where: { isActive: true },
+			include: [
+				{
+                    model: Country,
+					include: [City]
+				},
+			],
+		});
 		if (locations.length === 0) {
-			res.status(204).send(locations);
+			res.status(200).send(locations);
 		}
 		res.send(locations);
 	} catch (error) {
@@ -89,10 +93,8 @@ const storeCity = async (req, res) => {
 const showRegion = async (req, res) => {
 	try {
 		const location = await Region.findOne({
-            where: { id: req.params.region },
-            include:[
-                Country,
-            ]
+			where: { id: req.params.region },
+			include: [Country],
 		});
 		if (location) {
 			res.send(location);
@@ -111,10 +113,8 @@ const showRegion = async (req, res) => {
 const showCountry = async (req, res) => {
 	try {
 		const country = await Country.findOne({
-            where: { id: req.params.country },
-            include:[
-                City,
-            ]
+			where: { id: req.params.country },
+			include: [City],
 		});
 		if (country) {
 			res.send(country);
@@ -133,10 +133,8 @@ const showCountry = async (req, res) => {
 const showCity = async (req, res) => {
 	try {
 		const city = await City.findOne({
-            where: { id: req.params.city },
-            include:[
-                Country
-            ]
+			where: { id: req.params.city },
+			include: [Country],
 		});
 		if (city) {
 			res.send(city);
@@ -169,23 +167,72 @@ const cities = async (req, res) => {
 	}
 };
 
-const update = async (req, res) => {
+const updateRegion = async (req, res) => {
 	try {
-		const location = await Location.findOneAndUpdate(
-			{ _id: req.params.location },
+		const location = await Region.update(
+			{ name: req.body.name },
 			{
-				$set: req.body,
+				where: { id: req.params.region },
 			}
-		);
+        );
 		if (location) {
-			res.send({
-				_id: location.id,
-				locations: location.locations,
-				region: location.region,
+			res.status(200).send({
+                msg: "Region updated",
+                status: 1
 			});
 		} else {
 			res.status(500).send({
-				msg: "Invalid locations data",
+				msg: "Invalid Region data",
+			});
+		}
+	} catch (error) {
+		res.status(500).send({
+			msg: error.message,
+		});
+	}
+};
+const updateCountry = async (req, res) => {
+	try {
+		const location = await Country.update(
+			{ name: req.body.name },
+			{
+				where: { id: req.params.country, region_id: req.body.region_id },
+			}
+		);
+		if (location) {
+			res.status(200).send({
+                msg: "Country updated",
+                status: 1
+			});
+		} else {
+			res.status(500).send({
+				msg: "Invalid Country data",
+			});
+		}
+	} catch (error) {
+		res.status(500).send({
+			msg: error.message,
+		});
+	}
+};
+
+const updateCity = async (req, res) => {
+	try {
+		const location = await City.update(
+			{ name: req.body.name },
+			{
+				where: { id: req.params.city, country_id: req.body.country_id },
+			}
+        );
+        console.log(req.params,req.body);
+		if (location) {
+			res.status(200).send({
+                msg: "City updated",
+                status: 1
+			});
+		} else {
+			res.status(500).send({
+				msg: "Invalid City data",
 			});
 		}
 	} catch (error) {
@@ -197,12 +244,16 @@ const update = async (req, res) => {
 
 const destroyRegion = async (req, res) => {
 	try {
-		const location = await Region.destroy({
-			where: { id: req.params.region },
-		});
+		const location = await Region.update(
+			{ isActive: false },
+			{
+				where: { id: req.params.region },
+			}
+		);
 		if (location) {
 			res.status(200).send({
-				msg: "Region Deleted",
+                msg: "Region Deleted",
+                status: 1
 			});
 		} else {
 			res.status(500).send({
@@ -218,12 +269,16 @@ const destroyRegion = async (req, res) => {
 
 const destroyCountry = async (req, res) => {
 	try {
-		const location = await Country.destroy({
-			where: { id: req.params.country, region_id: req.body.region_id },
-		});
+		const location = await Country.update(
+			{ isActive: false },
+			{
+				where: { id: req.params.country, region_id: req.body.parent },
+			}
+		);
 		if (location) {
 			res.status(200).send({
-				msg: "Country Deleted",
+                msg: "Country Deleted",
+                status: 1
 			});
 		} else {
 			res.status(500).send({
@@ -239,12 +294,16 @@ const destroyCountry = async (req, res) => {
 
 const destroyCity = async (req, res) => {
 	try {
-		const location = await City.destroy({
-			where: { id: req.params.region, country_id: req.body.country_id },
-		});
+		const location = await City.update(
+			{ isActive: false },
+			{
+				where: { id: req.params.city, country_id: req.body.parent },
+			}
+		);
 		if (location) {
 			res.status(200).send({
-				msg: "City Deleted",
+                msg: "City Deleted",
+                status: 1
 			});
 		} else {
 			res.status(500).send({
@@ -266,9 +325,11 @@ export {
 	showRegion,
 	showCountry,
 	showCity,
-	update,
-    destroyRegion,
-    destroyCountry,
+	destroyRegion,
+	destroyCountry,
     destroyCity,
-    cities
+    updateRegion,
+    updateCountry,
+    updateCity,
+	cities,
 };

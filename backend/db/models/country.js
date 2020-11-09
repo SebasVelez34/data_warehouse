@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
 					key: "id",
 				},
 			},
+			isActive: {
+				type: DataTypes.BOOLEAN,
+				defaultValue: true
+			}
 		},
 		{
 			sequelize,
@@ -23,10 +27,15 @@ module.exports = (sequelize, DataTypes) => {
 	Country.associate = (models) => {
 		Country.hasMany(models.City, {
 			foreignKey: "country_id",
-			onDelete: 'cascade'
+			foreignKeyConstraint: true,
+			hooks: true,
+			onDelete: 'CASCADE'
 		});
 		Country.belongsTo(models.Region, {
-			foreignKey: "region_id"
+			foreignKey: "region_id",
+			foreignKeyConstraint: true,
+			hooks: true,
+			onDelete: 'CASCADE'
 		});
 	};
 	return Country;

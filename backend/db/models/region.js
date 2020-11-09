@@ -6,7 +6,11 @@ const Country = require('./country');
 module.exports = (sequelize, DataTypes) => {
   class Region extends Model {};
   Region.init({
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    }
   }, {
     sequelize,
     modelName: 'Region',
@@ -14,7 +18,9 @@ module.exports = (sequelize, DataTypes) => {
   Region.associate = (models) => {
 		Region.hasMany(models.Country, {
       foreignKey: "region_id",
-      onDelete: 'CASCADE'
+      onDelete: 'CASCADE',
+      foreignKeyConstraint: true,
+      hooks: true
 		});
 	};
   return Region;

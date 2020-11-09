@@ -8,7 +8,9 @@ import {
     storeCity,
     showCountry,
     showCity,
-    update,
+    updateRegion,
+    updateCountry,
+    updateCity,
     destroyRegion,
     destroyCountry,
     destroyCity,
@@ -23,7 +25,9 @@ router.get("/city/:city", showCity);
 router.post("/region", storeRegion);
 router.post("/country", storeCountry);
 router.post("/city", storeCity);
-router.put("/:location", update);
+router.put("/region/:region", updateRegion);
+router.put("/country/:country", updateCountry);
+router.put("/city/:city", updateCity);
 router.delete("/region/:region", destroyRegion);
 router.delete("/country/:country", destroyCountry);
 router.delete("/city/:city", destroyCity);

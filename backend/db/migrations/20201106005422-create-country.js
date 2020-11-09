@@ -19,6 +19,10 @@ module.exports = {
 					model: 'Regions',
 					key: "id",
 				},
+      },
+      isActive: {
+				type: Sequelize.BOOLEAN,
+				defaultValue: true
 			},
       createdAt: {
         allowNull: false,

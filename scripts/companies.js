@@ -7,6 +7,7 @@ const companies = (() => {
 	};
 
 	getCompanies = async () => {
+		console.log("oe jaja");
 		return await fetch(`${API_URL}/company`)
 			.then((data) => data.json())
 			.then((data) => data);
@@ -163,10 +164,7 @@ const companies = (() => {
 		init,
 		destroy,
 		edit,
+		getCompanies
 	};
-})();
-
-(()=>{
-	companies.init();
 })();
 

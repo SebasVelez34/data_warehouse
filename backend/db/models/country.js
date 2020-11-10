@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
 			region_id: {
 				type: DataTypes.INTEGER,
 				references: {
-					model: Region,
-					key: "id",
+					model: 'Region',
+					key: "region_id",
 				},
 			},
 			isActive: {

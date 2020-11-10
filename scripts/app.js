@@ -72,7 +72,7 @@ function showConfirm({
 
 function initializeDataTable(table_id) {
 	const table = $(`#${table_id}`);
-	if (table instanceof $.fn.dataTable.Api) {
+	if (table instanceof $.fn.dataTable.Api === false) {
 		$(`#${table_id}`).DataTable({
 			language: {
 				paginate: {

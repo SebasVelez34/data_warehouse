@@ -14,10 +14,10 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			address: DataTypes.STRING,
 			email: {
-        type: DataTypes.STRING,
-        validate: {
-          isEmail:true
-        },
+				type: DataTypes.STRING,
+				validate: {
+					isEmail: true,
+				},
 				name: {
 					type: DataTypes.STRING,
 					unique: {
@@ -42,8 +42,8 @@ module.exports = (sequelize, DataTypes) => {
 	);
 	Company.associate = (models) => {
 		Company.belongsTo(models.City, {
-      foreignKey: "city_id",
-      foreignKeyConstraint: true,
+			foreignKey: "city_id",
+			foreignKeyConstraint: true,
 			through: "city_id",
 		});
 	};

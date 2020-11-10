@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       references: {
         model: 'Countries',
-        key: "id",
+        key: "country_id",
       },
     },
     isActive: {
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   City.associate = (models) => {
 		City.belongsTo(models.Country, {
-      foreignKey: "id",
+      foreignKey: "country_id",
       foreignKeyConstraint: true,
       onDelete: 'CASCADE',
       hooks: true

@@ -224,7 +224,6 @@ const updateCity = async (req, res) => {
 				where: { id: req.params.city, country_id: req.body.country_id },
 			}
         );
-        console.log(req.params,req.body);
 		if (location) {
 			res.status(200).send({
                 msg: "City updated",

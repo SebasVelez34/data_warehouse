@@ -7,7 +7,6 @@
 		"load",
 		function () {
 			var forms = document.getElementsByClassName("needs-validation");
-			console.log(forms);
 			var validation = Array.prototype.filter.call(forms, function (form) {
 				form.addEventListener(
 					"submit",
@@ -72,7 +71,7 @@ function showConfirm({
 
 function initializeDataTable(table_id) {
 	const table = $(`#${table_id}`);
-	if (table instanceof $.fn.dataTable.Api === false) {
+	if (!$.fn.DataTable.isDataTable(`#${table_id}`)) {
 		$(`#${table_id}`).DataTable({
 			language: {
 				paginate: {
@@ -84,12 +83,15 @@ function initializeDataTable(table_id) {
 	}
 }
 
-const formData = (form, inputs = 'input') => {
+const formData = (form, inputs = "input") => {
 	let data = {};
 	form.querySelectorAll(inputs).forEach((element) => {
-		data[element.name] = element.type === "checkbox" ? element.checked : element.value;
+		data[element.name] =
+			element.type === "checkbox" ? element.checked : element.value;
 	});
 	return data;
 };
 
-const objectHasEmpties = (data) => Object.values(data).some((data) => data === "");
+const objectHasEmpties = (data) => {
+	return Object.values(data).some((data) => data === "");
+};

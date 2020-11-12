@@ -1,4 +1,11 @@
-import db, { Contacts, City, Company, Region, Country } from "../../db/";
+import db, {
+	Contacts,
+	Contacts_channels,
+	City,
+	Company,
+	Region,
+	Country,
+} from "../../db/";
 
 const index = async (req, res) => {
 	try {
@@ -9,14 +16,14 @@ const index = async (req, res) => {
 					include: [
 						{
 							model: Country,
-							include: [ Region ]
+							include: [Region],
 						},
 					],
 				},
 				{
 					model: Company,
-					include: [ City ]
-				}
+					include: [City],
+				},
 			],
 		});
 		if (contacts.length === 0) {
@@ -34,6 +41,17 @@ const store = async (req, res) => {
 	try {
 		const contact = await Contacts.create(req.body);
 		if (contact) {
+			const { contact_channel = [], user_account = [], preferences = [] } = req.body;
+			contact_channel.map(async (channel, index) => {
+				try {
+					await Contacts_channels.create({
+						contact_id: contact.id,
+						contact_channel: channel,
+						user_account: user_account[index],
+						preferences: preferences[index],
+					});
+				} catch (error) {}
+			});
 			res.send(contact);
 		} else {
 			res.status(500).send({
@@ -51,7 +69,24 @@ const show = async (req, res) => {
 	try {
 		const contact = await Contacts.findOne({
 			where: { id: req.params.contact },
-			include: [City, Company],
+			include: [
+				{
+					model: City,
+					include: [
+						{
+							model: Country,
+							include: [Region],
+						},
+					],
+				},
+				{
+					model: Company,
+					include: [City],
+				},
+				{
+					model: Contacts_channels,
+				},
+			],
 		});
 		if (contact) {
 			res.status(200).send(contact);
@@ -71,6 +106,24 @@ const update = async (req, res) => {
 			where: { id: req.params.contact },
 		});
 		if (contact) {
+			const { contact_channel = [], user_account = [], preferences = [] } = req.body;
+			contact_channel.map(async (channel, index) => {
+				try {
+					await Contacts_channels.update(
+						{
+							contact_id: req.body.id,
+							contact_channel: channel,
+							user_account: user_account[index],
+							preferences: preferences[index],
+						},
+						{
+							where: { contact_id: req.params.contact, contact_channel: channel },
+						}
+					);
+				} catch (error) {
+					console.log(error);
+				}
+			});
 			res.send({
 				name: req.params.contact,
 				msg: "Updated",
@@ -108,4 +161,27 @@ const destroy = async (req, res) => {
 	}
 };
 
-export { index, show, store, update, destroy };
+const multipleDestroy = (req, res) => {
+	try {
+		req.body.map(async (id) => {
+			try {
+				const contact = await Contacts.destroy({
+					where: { id },
+				});
+			} catch (error) {
+				
+			}
+			
+		})
+		res.status(200).send({
+			msg: "Contact Deleted",
+		});
+		
+	} catch (error) {
+		res.status(500).send({
+			msg: error.message,
+		});
+	}
+};
+
+export { index, show, store, update, destroy,multipleDestroy };

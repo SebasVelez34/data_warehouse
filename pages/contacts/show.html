@@ -110,7 +110,7 @@
                         <div class="card-header">
                             <h3 class="mb-0">Contactos</h3>
                             <p class="text-sm mb-0">
-                                Aquí puedes encontrar y modificar la información de tus contactos.
+                                Ver información del contacto
                             </p>
                         </div>
                         <div class="container contact-form mt-5">
@@ -343,9 +343,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="text-center mt-4 mb-5">
-                                    <button type="submit" class="btn btn-primary text-center col-md-6">Enviar</button>
-                                </div>
                             </form>
                         </div>
                     </div>
@@ -371,7 +368,7 @@
     <script src="../../scripts/contacts.js" type="text/javascript"></script>
     <script>
         (() => {
-            contacts.renderCreate();
+            contacts.renderEdit(true);
         })();
     </script>
 

@@ -64,7 +64,7 @@
                                 <span class="nav-link-inner--text">Cuenta</span>
                             </a>
                             <div class="dropdown-menu">
-                                <a href="../../login.html" class="dropdown-item">Ingresar</a>
+                                <a href="../../login.html" class="dropdown-item" id="logout">Cerrar sesión</a>
 
                             </div>
                         </li>
@@ -73,7 +73,7 @@
                                     class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../users.html">Usuarios</a>
+                            <a class="nav-link" href="../../users.html" id="userPage">Usuarios</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link" href="../../companies.html">Compañías</a>
@@ -356,6 +356,8 @@
     <!--   Core JS Files   -->
     <!-- Argon Scripts -->
     <!-- Core -->
+    <script src="../../scripts/config.js" type="text/javascript"></script>
+    <script>isLogged();</script>
     <script src="../../assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/0.2.1/jquery.velocity.min.js"></script>
     <script src="../../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -366,7 +368,6 @@
     <script src="../../assets/vendor/nouislider/distribute/nouislider.min.js"></script>
     <!-- Argon JS -->
     <script src="../../assets/js/argon.js?v=1.2.0"></script>
-    <script src="../../scripts/config.js" type="text/javascript"></script>
     <script src="../../scripts/app.js" type="text/javascript"></script>
     <script src="../../scripts/contacts.js" type="text/javascript"></script>
     <script>

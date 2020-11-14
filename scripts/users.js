@@ -6,7 +6,7 @@ const users = (()=>{
     };
     
     getUsers = async () => {
-		return await fetch(`${API_URL}/user`)
+		return await fetch(`${API_URL}/user`,{ headers })
 			.then((data) => data.json())
 			.then((data) => data);
     };
@@ -25,10 +25,10 @@ const users = (()=>{
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                             <a class="dropdown-item" href="#" onclick="users.edit('${
-															data._id
+															data.id
 														}')">Editar</a>
                             <a class="dropdown-item" href="#" onclick="users.destroy('${
-															data._id
+															data.id
 														}')">Eliminar</a>
                         </div>
                     </div>
@@ -55,13 +55,13 @@ const users = (()=>{
 			if (!isInvalid) {
 				const newCompany = action({ data, ...params });
 				newCompany
-					.then((company) => {
-						if ("name" in company) {
+					.then((user) => {
+						if ("name" in user) {
 							$("#modal-form").modal("hide");
 							render();
 							showAlert("Excelente", "Bien hecho", "success");
 						} else {
-							showAlert("Error", company.msg, "error", "danger");
+							showAlert("Error", user.msg, "error", "danger");
 						}
 					})
 					.catch((e) => {
@@ -72,10 +72,11 @@ const users = (()=>{
     };
 
     edit = async (user) => {
-		await fetch(`${API_URL}/user/${user}`)
+		await fetch(`${API_URL}/user/${user}`,{ headers })
 			.then((data) => data.json())
 			.then((data) => {
 				$("#modal-form").modal("show");
+				$("[name='password']").closest('.form-group').remove();
 				$("#modal-form input,select").each((i, v) => {
                     if(v.type === "checkbox"){
                         $(v).attr('checked',data[$(v).attr("name")])
@@ -93,6 +94,7 @@ const users = (()=>{
 			body: JSON.stringify(data),
 			headers: {
 				"Content-Type": "application/json",
+				...headers
 			},
 		}).then((data) => data.json());
     };
@@ -103,6 +105,7 @@ const users = (()=>{
 			body: JSON.stringify(data),
 			headers: {
 				"Content-Type": "application/json",
+				...headers
 			},
 		}).then((data) => data.json());
 	};
@@ -129,6 +132,7 @@ const users = (()=>{
     deleteUser = async (user) => {
 		return await fetch(`${API_URL}/user/${user}`, {
 			method: "DELETE",
+			headers
 		}).then((data) => data.json());
 	};
     

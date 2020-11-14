@@ -1,12 +1,17 @@
 const login = (() => {
 	init = () => {
-		document.querySelector("#loginForm").onsubmit = (e) => {
-			e.preventDefault();
-            const data = getData();
-            loginRequest(data);
-            
-            
-		};
+		const loginForm = document.querySelector("#loginForm");
+		if(loginForm)
+			loginForm.onsubmit = async (e) => {
+				e.preventDefault();
+				const data = getData();
+				const user = await loginRequest(data);
+				if(user){
+					console.log("WElo");
+					window.open(`${APP_URL}/contacts.html`,'_self');
+				}
+				
+			};
 	};
 	getData = () => {
 		const form = document.querySelectorAll("#loginForm input");
@@ -24,7 +29,11 @@ const login = (() => {
 				"Content-Type": "application/json",
 			},
         }).then(data => data.json())
-        .then(data => localStorage.setItem('dw-token',data.token));
+        .then(data => {
+			localStorage.setItem('dw-token',data.token);
+			localStorage.setItem('role',data.isAdmin);
+			return data;
+		});
         return user;
 	};
 

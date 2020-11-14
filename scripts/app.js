@@ -1,7 +1,4 @@
 (() => {
-	const location = window.location.origin;
-	const isLogged = getToken();
-	if (!isLogged) window.open(`${location}/login.html`, "_self");
 	("use strict");
 	window.addEventListener(
 		"load",

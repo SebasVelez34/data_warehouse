@@ -33,7 +33,7 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container navbar-full">
-                <a class="navbar-brand mr-lg-5" href="../index.html">
+                <a class="navbar-brand mr-lg-5" href="../contacts.html">
                     <img src="./images/logo.png" alt="Logo" class="logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-primary"
@@ -65,15 +65,16 @@
                                 <span class="nav-link-inner--text">Cuenta</span>
                             </a>
                             <div class="dropdown-menu">
-                                <a href="./login.html" class="dropdown-item">Ingresar</a>
-                                
+                                <a href="./login.html" class="dropdown-item" id="logout">Cerrar sesión</a>
+
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contacts.html">Contactos <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="contacts.html">Contactos <span
+                                    class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="users.html">Usuarios</a>
+                            <a class="nav-link" href="users.html" id="userPage">Usuarios</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link" href="companies.html">Compañías</a>
@@ -103,7 +104,8 @@
                                             <div class="modal-body p-0">
                                                 <div class="card bg-secondary border-0 mb-0">
                                                     <div class="card-header bg-transparent">
-                                                        <div class="text-muted text-center mt-2"><small>Compañía</small></div>
+                                                        <div class="text-muted text-center mt-2"><small>Compañía</small>
+                                                        </div>
                                                     </div>
                                                     <div class="card-body px-lg-5 py-lg-5">
                                                         <form role="form" id="formCreateCompany"
@@ -261,6 +263,8 @@
     <!--   Core JS Files   -->
     <!-- Argon Scripts -->
     <!-- Core -->
+    <script src="./scripts/config.js" type="text/javascript"></script>
+    <script>isLogged();</script>
     <script src="./assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="./assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./assets/vendor/js-cookie/js.cookie.js"></script>
@@ -279,11 +283,13 @@
     <script src="./assets/vendor/bootstrap-notify/bootstrap-notify.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.9.0/dist/sweetalert2.all.min.js"></script>
     <script src="./assets/js/argon.js?v=1.2.0"></script>
-    <script src="./scripts/config.js" type="text/javascript"></script>
+
     <script src="./scripts/app.js" type="text/javascript"></script>
     <script src="./scripts/companies.js" type="text/javascript"></script>
+
     <script>
-        (()=>{
+        (() => {
+
             companies.init();
         })();
     </script>

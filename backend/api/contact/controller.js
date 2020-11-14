@@ -41,7 +41,11 @@ const store = async (req, res) => {
 	try {
 		const contact = await Contacts.create(req.body);
 		if (contact) {
-			const { contact_channel = [], user_account = [], preferences = [] } = req.body;
+			const {
+				contact_channel = [],
+				user_account = [],
+				preferences = [],
+			} = req.body;
 			contact_channel.map(async (channel, index) => {
 				try {
 					await Contacts_channels.create({
@@ -106,7 +110,11 @@ const update = async (req, res) => {
 			where: { id: req.params.contact },
 		});
 		if (contact) {
-			const { contact_channel = [], user_account = [], preferences = [] } = req.body;
+			const {
+				contact_channel = [],
+				user_account = [],
+				preferences = [],
+			} = req.body;
 			contact_channel.map(async (channel, index) => {
 				try {
 					await Contacts_channels.update(
@@ -117,7 +125,10 @@ const update = async (req, res) => {
 							preferences: preferences[index],
 						},
 						{
-							where: { contact_id: req.params.contact, contact_channel: channel },
+							where: {
+								contact_id: req.params.contact,
+								contact_channel: channel,
+							},
 						}
 					);
 				} catch (error) {
@@ -142,13 +153,23 @@ const update = async (req, res) => {
 
 const destroy = async (req, res) => {
 	try {
-		const contact = await Contacts.destroy({
-			where: { id: req.params.contact },
+		const contact_channel = await Contacts_channels.destroy({
+			where: { contact_id: req.params.contact },
 		});
-		if (contact) {
-			res.status(200).send({
-				msg: "Contact Deleted",
+
+		if (contact_channel) {
+			const contact = await Contacts.destroy({
+				where: { id: req.params.contact },
 			});
+			if (contact) {
+				res.status(200).send({
+					msg: "Contact Deleted",
+				});
+			} else {
+				res.status(500).send({
+					msg: "Invalid contact data",
+				});
+			}
 		} else {
 			res.status(500).send({
 				msg: "Invalid contact data",
@@ -165,18 +186,17 @@ const multipleDestroy = (req, res) => {
 	try {
 		req.body.map(async (id) => {
 			try {
+				const contact_channel = await Contacts_channels.destroy({
+					where: { contact_id: id },
+				});
 				const contact = await Contacts.destroy({
 					where: { id },
 				});
-			} catch (error) {
-				
-			}
-			
-		})
+			} catch (error) {}
+		});
 		res.status(200).send({
 			msg: "Contact Deleted",
 		});
-		
 	} catch (error) {
 		res.status(500).send({
 			msg: error.message,
@@ -184,4 +204,4 @@ const multipleDestroy = (req, res) => {
 	}
 };
 
-export { index, show, store, update, destroy,multipleDestroy };
+export { index, show, store, update, destroy, multipleDestroy };

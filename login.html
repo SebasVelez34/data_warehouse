@@ -23,11 +23,11 @@
     <link href="./styles/style.css" rel="stylesheet" />
 </head>
 
-<body class="login-page">
+<body class="bg-default login-page">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary bg-gradient-primary">
         <div class="container navbar-full">
-            <a class="navbar-brand mr-lg-5" href="../index.html">
+            <a class="navbar-brand mr-lg-5" href="../contacts.html">
                 <img src="./images/logo.png" alt="Logo" class="logo">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-primary"
@@ -52,76 +52,57 @@
                         </div>
                     </div>
                 </div>
-                <ul class="navbar-nav ml-lg-auto">
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link" data-toggle="dropdown" href="#" role="button">
-                            <i class="ni ni-collection d-lg-none"></i>
-                            <span class="nav-link-inner--text">Cuenta</span>
-                        </a>
-                        <div class="dropdown-menu">
-                            <a href="./login.html" class="dropdown-item">Ingresar</a>
-                            
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contacts.html">Contactos <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="users.html">Usuarios</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="companies.html">Compañías</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="locations.html">Región / Ciudad</a>
-                    </li>
-                </ul>
             </div>
         </div>
     </nav>
-    
-    <!-- End Navbar -->
-    <section class="section section-shaped section-lg vh-100">
-        <div class="shape shape-style-1 bg-gradient-default">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+    <!-- Main content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header bg-gradient-primary py-7 py-lg-8 pt-lg-9">
+            <div class="container">
+                <div class="header-body text-center mb-7">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-5 col-lg-6 col-md-8 px-5">
+                            <h1 class="text-white">Bienvenido!</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="separator separator-bottom separator-skew zindex-100">
+                <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+                </svg>
+            </div>
         </div>
-        <div class="container pt-lg-7">
+        <!-- Page content -->
+        <div class="container mt--8 pb-5">
             <div class="row justify-content-center">
-                <div class="col-lg-5">
-                    <div class="card bg-secondary shadow border-0">
-                        <div class="card-header bg-white">
-                            <div class="text-muted text-center mb-3"><small>Login</small></div>
+                <div class="col-lg-5 col-md-7">
+                    <div class="card bg-secondary border-0 mb-0">
+                        <div class="card-header bg-transparent pb-5">
+                            <div class="text-muted text-center"><small>Inciar Sesión</small></div>
                         </div>
                         <div class="card-body px-lg-5 py-lg-5">
-                            <form role="form" id="loginForm" >
+                            <form role="form" id="loginForm">
                                 <div class="form-group mb-3">
-                                    <div class="input-group input-group-alternative">
+                                    <div class="input-group input-group-merge input-group-alternative">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                         </div>
-                                        <input class="form-control" placeholder="Email" type="email" name="email" required>
+                                        <input class="form-control" placeholder="Email" type="email">
                                     </div>
                                 </div>
-                                <div class="form-group focused">
-                                    <div class="input-group input-group-alternative">
+                                <div class="form-group">
+                                    <div class="input-group input-group-merge input-group-alternative">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                         </div>
-                                        <input class="form-control" placeholder="Password" type="password" name="password" required>
+                                        <input class="form-control" placeholder="Password" type="password">
                                     </div>
                                 </div>
-                                <div class="custom-control custom-control-alternative custom-checkbox">
-                                    <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
-                                </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-primary my-4">Iniciar Sesion</button>
+                                    <button type="submit" class="btn btn-primary my-4">Sign in</button>
                                 </div>
                             </form>
                         </div>
@@ -129,16 +110,15 @@
                 </div>
             </div>
         </div>
-    </section>
-    <script src="./assets/vendor/jquery/dist/jquery.min.js"></script>
-    <script src="./assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/vendor/js-cookie/js.cookie.js"></script>
-    <script src="./assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
-    <script src="./assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
-
-    <script src="./assets/vendor/bootstrap-notify/bootstrap-notify.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.9.0/dist/sweetalert2.all.min.js"></script>
-    <script src="./assets/js/argon.js?v=1.2.0"></script>
+    </div>
+    <!-- Footer -->
+    <script src="./scripts/config.js"></script>
+    <script src="./scripts/login.js"></script>
+    <script>
+        if (getToken()) {
+            window.open(`${APP_URL}/contacts.html`, "_self");
+        }
+    </script>
 </body>
 
 </html>

@@ -7,13 +7,17 @@ const companies = (() => {
 	};
 
 	getCompanies = async () => {
-		return await fetch(`${API_URL}/company`)
+		return await fetch(`${API_URL}/company`, {
+			headers,
+		})
 			.then((data) => data.json())
 			.then((data) => data);
 	};
 
 	getCities = async () => {
-		return await fetch(`${API_URL}/location/cities`)
+		return await fetch(`${API_URL}/location/cities`, {
+			headers,
+		})
 			.then((data) => data.json())
 			.then((data) => data);
 	};
@@ -32,12 +36,8 @@ const companies = (() => {
                         <i class="fas fa-ellipsis-v"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                            <a class="dropdown-item" href="#" onclick="companies.edit('${
-															data.id
-														}')">Editar</a>
-                            <a class="dropdown-item" href="#" onclick="companies.destroy('${
-															data.id
-														}')">Eliminar</a>
+                            <a class="dropdown-item" href="#" onclick="companies.edit('${data.id}')">Editar</a>
+                            <a class="dropdown-item" href="#" onclick="companies.destroy('${data.id}')">Eliminar</a>
                         </div>
                     </div>
                 </td>
@@ -46,7 +46,9 @@ const companies = (() => {
 	};
 
 	edit = async (company) => {
-		await fetch(`${API_URL}/company/${company}`)
+		await fetch(`${API_URL}/company/${company}`, {
+			headers,
+		})
 			.then((data) => data.json())
 			.then((data) => {
 				$("#modal-form").modal("show");
@@ -60,12 +62,17 @@ const companies = (() => {
 	destroy = (company) => {
 		showConfirm({
 			callbackConfirm: async () => {
-                const response = await deleteCompany(company);
-                if ("msg" in response) {
-                    showAlert("Excelente", "Bien hecho", "success");
-                }else{
-                    showAlert("Error", "Hubo un error intentando eliminar la compañía", "error", "danger");
-                }
+				const response = await deleteCompany(company);
+				if ("msg" in response) {
+					showAlert("Excelente", "Bien hecho", "success");
+				} else {
+					showAlert(
+						"Error",
+						"Hubo un error intentando eliminar la compañía",
+						"error",
+						"danger"
+					);
+				}
 				render();
 			},
 			callbackCancel: () => {},
@@ -74,21 +81,21 @@ const companies = (() => {
 
 	citiesOnModal = async () => {
 		const cities = await getCities();
-		const select = document.querySelector('#city_id');
+		const select = document.querySelector("#city_id");
 		console.log(cities);
-		let html = ''
-		cities.map(city =>{
+		let html = "";
+		cities.map((city) => {
 			html += `<option value="${city.id}">${city.name}</option>`;
 		});
 		select.insertAdjacentHTML("afterbegin", html);
-	}
+	};
 
 	render = async () => {
 		const data = await getCompanies();
 		const parent = document.querySelector("#companyTable");
-        const html = data.map((company) => template(company)).join("");
-        cleanTable();
-        parent.insertAdjacentHTML("afterbegin", html);
+		const html = data.map((company) => template(company)).join("");
+		cleanTable();
+		parent.insertAdjacentHTML("afterbegin", html);
 		initializeDataTable("datatable-buttons");
 	};
 
@@ -100,7 +107,7 @@ const companies = (() => {
 		const form = document.querySelector("#formCreateCompany");
 		form.onsubmit = (e) => {
 			e.preventDefault();
-			const data = formData(form,"input,select");
+			const data = formData(form, "input,select");
 			const isInvalid = objectHasEmpties(data);
 			if (!isInvalid) {
 				const newCompany = action({ data, ...params });
@@ -127,6 +134,7 @@ const companies = (() => {
 			body: JSON.stringify(data),
 			headers: {
 				"Content-Type": "application/json",
+				...headers
 			},
 		}).then((data) => data.json());
 	};
@@ -137,6 +145,7 @@ const companies = (() => {
 			body: JSON.stringify(data),
 			headers: {
 				"Content-Type": "application/json",
+				...headers
 			},
 		}).then((data) => data.json());
 	};
@@ -144,6 +153,7 @@ const companies = (() => {
 	deleteCompany = async (company) => {
 		return await fetch(`${API_URL}/company/${company}`, {
 			method: "DELETE",
+			headers
 		}).then((data) => data.json());
 	};
 
@@ -163,7 +173,6 @@ const companies = (() => {
 		init,
 		destroy,
 		edit,
-		getCompanies
+		getCompanies,
 	};
 })();
-

@@ -1,5 +1,7 @@
 import { getToken } from "../../utils";
 import db, { Users } from "../../db";
+const bcrypt = require('bcrypt');
+import { createToken, validatePassword } from "../../utils/config.js";
 
 const index = async (req, res) => {
 	try {
@@ -34,16 +36,23 @@ const show = async (req, res) => {
 
 const signin = async (req, res) => {
 	const signinUser = await Users.findOne({
-		where: { email: req.body.email, password: req.body.password },
+		where: { email: req.body.email},
 	});
 	if (signinUser) {
+		const { id, name, lastname, email, isAdmin, password } = signinUser;
+		if(!validatePassword(password, req.body.password)){
+			res.status(500).send({
+				msg: "Invalid credentials, please verify",
+			});
+		}
+		const token = createToken({ id, email, isAdmin });
 		res.send({
-			_id: signinUser.id,
-			name: signinUser.name,
-			lastname: signinUser.lastname,
-			email: signinUser.email,
-			isAdmin: signinUser.isAdmin,
-			token: getToken(signinUser),
+			_id: id,
+			name: name,
+			lastname: lastname,
+			email: email,
+			isAdmin: isAdmin,
+			token,
 		});
 	} else {
 		res.status(500).send({
@@ -54,6 +63,7 @@ const signin = async (req, res) => {
 
 const register = async (req, res) => {
 	try {
+		req.body.password = bcrypt.hashSync(req.body.password, 10);
 		const user = await Users.create(req.body);
 		if (user) {
 			res.send({
@@ -82,6 +92,7 @@ const update = async (req, res) => {
 		});
 		if (user) {
 			res.send({
+				name: req.params.user,
 				msg: "User Updated",
 			});
 		} else {

@@ -5,7 +5,9 @@ const contacts = (() => {
 	};
 
 	getContacts = async () => {
-		return await fetch(`${API_URL}/contact`)
+		return await fetch(`${API_URL}/contact`,{
+            headers
+        })
 			.then((data) => data.json())
 			.then((data) => data);
 	};
@@ -57,7 +59,9 @@ const contacts = (() => {
 	};
 
 	companiesR = async () => {
-		await $.getScript("../../scripts/companies.js");
+		await $.getScript("../../scripts/companies.js",{
+            headers
+        });
 		const company = await companies.getCompanies();
 		company
 			.map((company) =>
@@ -69,7 +73,9 @@ const contacts = (() => {
 	};
 
 	locationsR = async () => {
-		await $.getScript("../../scripts/locations.js");
+		await $.getScript("../../scripts/locations.js",{
+            headers
+        });
 		const location = await locations.getRegions();
 		localStorage.setItem("locations", JSON.stringify(location));
 		$("#region option").empty();
@@ -185,9 +191,10 @@ const contacts = (() => {
 					});
 					const response = await deleteContacts({ data });
 					if ("msg" in response) {
+                        await contacts.render();
 						showAlert("Excelente", "Bien hecho", "success");
 						$("#delete-contacts").addClass("d-none");
-						$("#badge-selected").text(``);
+                        $("#badge-selected").text(``);
 					} else {
 						showAlert(
 							"Error",
@@ -196,7 +203,6 @@ const contacts = (() => {
 							"danger"
 						);
 					}
-					render();
 				},
 				callbackCancel: () => {},
 			});
@@ -263,7 +269,8 @@ const contacts = (() => {
 			method: "POST",
 			body: JSON.stringify(data),
 			headers: {
-				"Content-Type": "application/json",
+                "Content-Type": "application/json",
+                ...headers
 			},
 		}).then((data) => data.json());
 	};
@@ -273,13 +280,14 @@ const contacts = (() => {
 			method: "PUT",
 			body: JSON.stringify(data),
 			headers: {
-				"Content-Type": "application/json",
+                "Content-Type": "application/json",
+                ...headers
 			},
 		}).then((data) => data.json());
 	};
 
 	show = async ({ contact }) => {
-		return await fetch(`${API_URL}/contact/${contact}`).then((data) =>
+		return await fetch(`${API_URL}/contact/${contact}`,{ headers }).then((data) =>
 			data.json()
 		);
 	};
@@ -309,14 +317,16 @@ const contacts = (() => {
 			method: "DELETE",
 			body: JSON.stringify(data),
 			headers: {
-				"Content-Type": "application/json",
+                "Content-Type": "application/json",
+                ...headers
 			},
 		}).then((data) => data.json());
 	};
 
 	deleteContact = async (contact) => {
 		return await fetch(`${API_URL}/contact/${contact}`, {
-			method: "DELETE",
+            method: "DELETE",
+            headers,
 		}).then((data) => data.json());
 	};
 
@@ -324,6 +334,7 @@ const contacts = (() => {
 		init,
 		renderCreate,
 		renderEdit,
-		destroy,
+        destroy,
+        render
 	};
 })();
